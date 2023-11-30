@@ -1,0 +1,7 @@
+./venv
+.idea
+__pycache__/ball.cpython-311.pyc
+__pycache__/ball.cpython-312.pyc
+__pycache__/bricks.cpython-311.pyc
+__pycache__/paddle.cpython-311.pyc
+__pycache__/paddle.cpython-312.pyc
