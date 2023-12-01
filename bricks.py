@@ -1,8 +1,43 @@
 from turtle import Turtle
+import random
+
+colors = ['red', 'green', 'purple', 'skyblue', 'black']
 
 
 class Brick(Turtle):
     def __init__(self):
         super().__init__()
         self.shape('square')
-        self.shapesize(stretch_wid=1, stretch_len=3)
+        self.color(random.choice(colors))
+        self.penup()
+        self.speed('fastest')
+        self.hideturtle()
+        self.shapesize(stretch_wid=1, stretch_len=1.8)
+        self.max_xcor = 420
+        self.min_xcor = -420
+        self.max_ycor = 210
+        self.min_ycor = 100
+        self.all_bricks = []
+
+    def generate_bricks(self):  # generate the bricks
+        columns = 18  # this is constant with current settings
+        rows = 7
+        for _ in range(0, columns * rows):
+            new_brick = Brick()
+            self.all_bricks.append(new_brick)
+
+    def display_bricks(self):  # displaying bricks on screen
+        x_cor = -435
+        y_cor = 209
+        random_xcor = [-450, - 435]
+        for block in self.all_bricks:
+            block.goto(x_cor, y_cor)
+            block.showturtle()
+            x_cor += 52
+            if x_cor > 450:
+                y_cor -= 30
+                x_cor = random.choice(random_xcor)
+
+
+
+
