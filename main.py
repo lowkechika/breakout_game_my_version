@@ -2,16 +2,18 @@ import turtle
 from ball import Ball
 from paddle import Paddle
 from bricks import Brick
-import time
+from highscore import HighScore
+
 
 window = turtle.Screen()
 window.setup(width=900, height=600)
 window.title('Breakout')
 
 ball = Ball()
-ball.speed(0.05)
+
 paddle = Paddle()
 brick = Brick()
+score = HighScore()
 
 # keybindings
 window.listen()
@@ -33,20 +35,23 @@ def detect_collision():
             try:
                 block.hideturtle()
                 brick.all_bricks.remove(block)
+                score.score_increment()  # add 1 to current score
                 ball.bounce_y()
+                score.save_highscore()
             except ValueError:
                 pass
 
 
-brick.generate_bricks()
-brick.display_bricks()
-
-game_on = True
-while game_on:
-    ball.move()
-    window.update()
-    time.sleep(0.001)
+def play_game():
+    if not brick.bricks_active:
+        brick.generate_bricks()
     detect_collision()
+    ball.move()
+    window.tracer(0)
+    window.update()
+    window.ontimer(play_game, 1)
 
 
-window.mainloop()
+play_game()
+
+window.exitonclick()

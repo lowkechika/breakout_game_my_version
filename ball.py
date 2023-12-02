@@ -7,10 +7,10 @@ class Ball(Turtle):
     def __init__(self):
         super().__init__()
         self.shape('circle')
-        self.hideturtle()
         self.penup()
         self.color('black')
         self.goto(POSITION)
+        self.speed('slowest')
         self.showturtle()
         self.add_xcor = 10
         self.add_ycor = 10
