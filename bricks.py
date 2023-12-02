@@ -7,6 +7,7 @@ colors = ['red', 'green', 'purple', 'skyblue', 'black']
 class Brick(Turtle):
     def __init__(self):
         super().__init__()
+        self.bricks_active = False
         self.shape('square')
         self.color(random.choice(colors))
         self.penup()
@@ -24,12 +25,19 @@ class Brick(Turtle):
         rows = 7
         for _ in range(0, columns * rows):
             new_brick = Brick()
+            new_brick.hideturtle()
             self.all_bricks.append(new_brick)
+        # print('Bricks made')
+        # print(len(self.all_bricks))
+        self.display_bricks()
+        self.bricks_active = True
 
-    def display_bricks(self):  # displaying bricks on screen
+    def display_bricks(self):
+        # displaying the bricks on screen
         x_cor = -435
         y_cor = 209
         random_xcor = [-450, - 435]
+
         for block in self.all_bricks:
             block.goto(x_cor, y_cor)
             block.showturtle()
@@ -37,7 +45,3 @@ class Brick(Turtle):
             if x_cor > 450:
                 y_cor -= 30
                 x_cor = random.choice(random_xcor)
-
-
-
-
