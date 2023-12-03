@@ -1,6 +1,5 @@
 import os.path
 from turtle import Turtle, TK
-import turtle
 
 
 class HighScore(Turtle):
@@ -12,7 +11,9 @@ class HighScore(Turtle):
         self.current_score = 0
         self.goto(0, 240)
         self.search_highscore()
-        self.update_scoreboard()
+        self.attempts = 5
+        self.player_choice = None
+        self.player_achievement()
 
     def save_highscore(self):
         if self.current_score > self.high_score:
@@ -37,10 +38,25 @@ class HighScore(Turtle):
                     high_score = int(file.readline())
                     self.high_score = high_score
                 except ValueError:
-                    TK.messagebox.showinfo(title="Oooops!",
-                                           message="This isn't right! Somebody messed with the save file! We've fixed "
-                                                   "it for you ;)")
+                    TK.messagebox.showerror(title="Oooops!",
+                                            message="This isn't right! Somebody messed with the save file! We've fixed "
+                                                    "it for you ;)")
                     with open('highscore.txt', 'w') as new_file:
                         new_file.write(f'{self.high_score}')
 
+    def player_achievement(self):
+        if self.attempts == 0 and self.player_choice is None:
+            if self.current_score > self.high_score:
+                self.player_choice = TK.messagebox.showinfo(title="Well Done!",
+                                                            message=f"Congratulations for beating the High "
+                                                                    f"Score!\nYour score is:"
+                                                                    f"{self.current_score}You beat the"
+                                                                    f"High Score!\nIf you select No, the game will quit")
+            else:
+                self.player_choice = TK.messagebox.askyesno(title="Game Over!",
+                                                            message=f"Thank you for Playing!\nYour score is: "
+                                                                    f"{self.current_score}\n"
+                                                                    f"Would you like to play again?\nIf you select No, "
+                                                                    f"the game will quit")
+            self.current_score = 0
 

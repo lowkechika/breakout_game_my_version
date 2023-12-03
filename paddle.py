@@ -11,8 +11,9 @@ class Paddle(Turtle):
         self.penup()
         self.hideturtle()
         self.shapesize(stretch_wid=1, stretch_len=4)
-        self.goto(POSITION)
+        self.setpos(POSITION)
         self.showturtle()
+        self.paddle_active = True
 
     def move_right(self):
         x_position = self.xcor() + 50
@@ -21,3 +22,8 @@ class Paddle(Turtle):
     def move_left(self):
         x_position = self.xcor() - 50
         self.goto(x_position, self.ycor())
+
+    def reset_(self):
+        self.goto(POSITION)
+
+

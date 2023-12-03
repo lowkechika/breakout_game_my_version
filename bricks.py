@@ -14,34 +14,42 @@ class Brick(Turtle):
         self.speed('fastest')
         self.hideturtle()
         self.shapesize(stretch_wid=1, stretch_len=1.8)
-        self.max_xcor = 420
-        self.min_xcor = -420
-        self.max_ycor = 210
-        self.min_ycor = 100
+        self.x_cor = -435
+        self.y_cor = 209
         self.all_bricks = []
 
     def generate_bricks(self):  # generate the bricks
-        columns = 18  # this is constant with current settings
-        rows = 7
-        for _ in range(0, columns * rows):
-            new_brick = Brick()
-            new_brick.hideturtle()
-            self.all_bricks.append(new_brick)
-        # print('Bricks made')
-        # print(len(self.all_bricks))
-        self.display_bricks()
-        self.bricks_active = True
+        if not self.bricks_active:
+            # print('Generating bricks!')
+            columns = 18  # this is constant with current settings
+            rows = 6
+            for _ in range(0, columns * rows):
+                new_brick = Brick()
+                new_brick.hideturtle()
+                self.all_bricks.append(new_brick)
+            self.display_bricks()
+            self.bricks_active = True
 
     def display_bricks(self):
         # displaying the bricks on screen
-        x_cor = -435
-        y_cor = 209
         random_xcor = [-450, - 435]
 
-        for block in self.all_bricks:
-            block.goto(x_cor, y_cor)
+        for block in self.all_bricks[0: 108]:
+            self.clear()
+            block.goto(self.x_cor, self.y_cor)
             block.showturtle()
-            x_cor += 52
-            if x_cor > 450:
-                y_cor -= 30
-                x_cor = random.choice(random_xcor)
+            self.x_cor += 52
+            if self.x_cor > 450:
+                self.y_cor -= 30
+                self.x_cor = random.choice(random_xcor)
+
+    def reset_(self):
+        self.y_cor = 209
+        self.x_cor = -435
+
+    def clear_(self):
+        try:
+            for block in self.all_bricks[0: 108]:
+                block.clear()
+        except ValueError:
+            pass
